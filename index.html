@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            canvas {
+                background-color: black;
+                width: 640px;
+                height: 320px;
+            }
+            
+            video::-webkit-media-controls {
+                display:none !important;
+            }
+            
+/*            video {
+                display: none;
+                visibility: hidden;
+            }*/
+
+            /* inline video styles */
+            .inlineVideoContainer {
+                position: relative;
+            }
+            
+            .inlineVideoPlayer {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+            }
+            
+            button {
+                position: absolute;
+                color: white;
+                font-size: 18px;
+                border-radius: 10px;
+                padding: 10px;
+                background-color: #3ac;
+                border: none;
+            }
+            
+            .inlineVideoPlayButton {
+                top: 40%;
+                left: 50%;
+                margin-left: -100px;
+            }
+            
+            .inlineVideoPauseButton {
+                top: 40%;
+                left: 59%;
+                margin-left: -100px;
+            }
+            
+            
+
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="js/requestAnimationFrame.js"></script>
+        <!--<script src="js/iPhoneInlineVideo.js"></script>-->
+        <script src="js/inline-video-player.js"></script>
+        <script>
+            var FrameRates = {
+                film: 24,
+                NTSC : 29.97,
+                NTSC_Film: 23.98,
+                NTSC_HD : 59.94,
+                PAL: 25,
+                PAL_HD: 50,
+                web: 30,
+                high: 60
+            };
+        </script>
+        <script>
+            (function() {
+                $(window).load(function() {
+                    
+                    var video = new InlineVideo($('.inlineVideoContainer'));
+                    video.src = 'video/buck.mp4';
+//                    video.src = 'http://www.marzipano.net/demos/common-media/video/mercedes-f1-720x360.mp4';
+                    
+                    $('.load').on('click touchstart', function() {
+                        video.load();
+                        console.dir(video);
+                    });
+                    
+                });
+            })(jQuery);
+        </script>
+    </head>
+    <body>
+
+        <div class="container">   
+            
+<!--            <div class="inlineVideoContainer"></div>
+            <button class="load">load</button>-->
+        </div>
+    </body>
+</html>
