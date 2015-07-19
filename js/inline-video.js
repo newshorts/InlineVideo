@@ -17,7 +17,7 @@
 
 'use strict';
 
-var InlineVideo = function(container) {
+var InlineVideo = function(elem) {
 
     // global
     var __ = this;
@@ -26,12 +26,25 @@ var InlineVideo = function(container) {
     // private
     (function init() {
         // set self
-        __ = document.createElement('video');
-        __.preload = 'auto';
+//        __ = document.createElement('video');
+//        __.preload = 'auto';
 
         // set container
-        var cleanContainer = function() { return (container.indexOf('.') === 0) ? container : '.' + container; };
-        __.container = (container instanceof jQuery) ? container : $( cleanContainer() );
+//        var cleanContainer = function() { return (container.indexOf('.') === 0) ? container : '.' + container; };
+//        __.container = (container instanceof jQuery) ? container : $( cleanContainer() );
+
+        // map this videoplayer to the html5 video player
+        __ = elem;
+        
+        // replace the video element with an inline element
+        var poster = $(elem).attr('poster');
+        __.posterLink = document.createElement('a');
+        $(__.posterLink).addClass('inlineVideoPoster').html('<img src="'+poster+'" />');
+        
+        var inlineVideo = document.createElement('inlineVideo');
+        $(inlineVideo).addClass('inlineVideoContainer').html(__.posterLink);
+        $(elem).replaceWith(inlineVideo);
+        __.container = $(inlineVideo);
 
         // set canvas
         __.canvasElem = document.createElement('canvas');
@@ -72,6 +85,10 @@ var InlineVideo = function(container) {
         cancelAnimationFrame(__.animationRequest);
         __.animationRequest = null;
     }
+    
+    function handlePosterLinkClicked() {
+        __.load();
+    }
 
     function renderFrame(elapsed) {
         // TODO: output the current video frame to canvas
@@ -110,6 +127,26 @@ var InlineVideo = function(container) {
     __.onprogress = function() { handleProgress(arguments); };
     $(__.playButton).on('click', handlePlayButtonClicked);
     $(__.pauseButton).on('click', handlePauseButtonClicked);
+    $(__.posterLink).on('click touchstart', handlePosterLinkClicked);
 
     return __;
 };
+
+(function($) {
+    $(window).load(function() {
+        var iOS = /iPhone|iPod/.test( navigator.userAgent );
+        if(iOS || debug) {
+            
+            var videos = $('video[playsinline], video[webkit-playsinline]');
+            var inlineVideos = [];
+            
+            for(var i = 0, len = videos.length; i < len; i++) {
+                var video = new InlineVideo(videos[i]);
+                inlineVideos.push(video);
+            }
+        
+            console.log('inline videos:');
+            console.log(inlineVideos);
+        }
+    });
+})(jQuery);

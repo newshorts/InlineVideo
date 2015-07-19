@@ -5,14 +5,15 @@ This description should match descriptions added for package managers (Gemspec, 
 
 ## Code Example
 
-Simply include the library in your scripts. And then...
+When you embed a video element in your page be sure to include the "playsinline" attribute. Then add a source attribute with an mp3 of the audio in your video.
 
-Code as usual, when you embed a video element in your page be sure to include the "playsinline" attribute, InlineVideo.js will automatically detect video elements with this attribute and replace them with the InlineVideo.js player if your users are on an iPhone.
+InlineVideo.js will automatically detect video elements with this attribute and replace them with the InlineVideo.js player if your users are on an iPhone. It will also play the audio track along with the video frames. To the user, the experience will be an inline video.
 
 ```html
 <video width="320" height="240" controls playsinline webkit-playsinline>
     <source src="movie.mp4" type="video/mp4">
     <source src="movie.ogg" type="video/ogg">
+    <source src="movieAudio.mp3" type="audio/mp3">
 </video>
 ```
 
@@ -48,6 +49,7 @@ There's some important conversation happening here: [Chromium developers forum](
 Also there are a couple of example uses of inline video being used in the wild:
 
 [KRPano Cloud Demo](http://krpano.com/krpanocloud/video/airpano/index.html)
+
 [takeyourdose.com](http://www.takeyourdose.com/en)
 
 If you'd like to get involved message me, submit a pull request or issue.
