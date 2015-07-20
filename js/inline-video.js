@@ -26,21 +26,18 @@ var InlineVideo = function(elem) {
     // private
     (function init() {
         // set self
-//        __ = document.createElement('video');
-//        __.preload = 'auto';
-
-        // set container
-//        var cleanContainer = function() { return (container.indexOf('.') === 0) ? container : '.' + container; };
-//        __.container = (container instanceof jQuery) ? container : $( cleanContainer() );
-
-        // map this videoplayer to the html5 video player
         __ = elem;
         
-        // replace the video element with an inline element
+        // grab the poster and replace the background of the inlineVideo element
+        
+        __.width = $(elem).width();
+        __.height = $(elem).height();
+        
         var poster = $(elem).attr('poster');
         __.posterLink = document.createElement('a');
         $(__.posterLink).addClass('inlineVideoPoster').html('<img src="'+poster+'" />');
         
+        // replace the video with inlineVideo element
         var inlineVideo = document.createElement('inlineVideo');
         $(inlineVideo).addClass('inlineVideoContainer').html(__.posterLink);
         $(elem).replaceWith(inlineVideo);
@@ -60,12 +57,12 @@ var InlineVideo = function(elem) {
 
     })();
 
-    function handleOnLoadedData() {
+    function handleOnLoadedMetaData() {
         console.log(__.duration);
 
         // resize & inject our video player into the dom
         var player = [__.canvasElem, __.playButton, __.pauseButton];
-        __.container.width(__.videoWidth).height(__.videoHeight).append(player);
+        __.container.width(__.width).height(__.height).append(player);
 
         console.log("Start: " + __.seekable.start(0) + " End: " + __.seekable.end(0));
     }
@@ -88,10 +85,10 @@ var InlineVideo = function(elem) {
     
     function handlePosterLinkClicked() {
         __.load();
+        console.log('handlePosterLinkClicked clicked')
     }
 
     function renderFrame(elapsed) {
-        // TODO: output the current video frame to canvas
         __.currentTime = __.currentTime + elapsed;
         __.canvasElemCtx.drawImage(__, 0, 0, __.videoWidth, __.videoHeight);
     }
@@ -122,8 +119,8 @@ var InlineVideo = function(elem) {
 
     // events
     __.onloadstart = function() { console.log(arguments); }; // fires when the loading starts
-    __.onloadedmetadata = function() { console.log(arguments);  }; //  when we have metadata about the video
-    __.onloadeddata = function() { console.log(arguments); handleOnLoadedData(arguments); }; // when we have the first frame
+    __.onloadedmetadata = function() { console.log(arguments); handleOnLoadedMetaData(arguments); }; //  when we have metadata about the video
+    __.onloadeddata = function() { console.log(arguments);  }; // when we have the first frame
     __.onprogress = function() { handleProgress(arguments); };
     $(__.playButton).on('click', handlePlayButtonClicked);
     $(__.pauseButton).on('click', handlePauseButtonClicked);
@@ -137,16 +134,20 @@ var InlineVideo = function(elem) {
         var iOS = /iPhone|iPod/.test( navigator.userAgent );
         if(iOS || debug) {
             
-            var videos = $('video[playsinline], video[webkit-playsinline]');
-            var inlineVideos = [];
+            setTimeout(function() {
+                var videos = $('video[playsinline], video[webkit-playsinline]');
+                var inlineVideos = [];
+
+                for(var i = 0, len = videos.length; i < len; i++) {
+                    var video = new InlineVideo(videos[i]);
+                    inlineVideos.push(video);
+                }
+
+                console.log('inline videos:');
+                console.dir(inlineVideos);
+            }, 1000);
             
-            for(var i = 0, len = videos.length; i < len; i++) {
-                var video = new InlineVideo(videos[i]);
-                inlineVideos.push(video);
-            }
-        
-            console.log('inline videos:');
-            console.log(inlineVideos);
+                
         }
     });
 })(jQuery);

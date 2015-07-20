@@ -31,6 +31,15 @@ and open the template in the editor.
                 display: block;
             }
             
+            .inlineVideoPoster {
+                position: absolute;
+                top: 0;
+                left: 0;
+                
+                border: 1px dashed red;
+                
+            }
+            
             .inlineVideoPlayer {
                 position: absolute;
                 width: 100%;
@@ -85,15 +94,6 @@ and open the template in the editor.
             (function() {
                 $(window).load(function() {
                     
-//                    var video = new InlineVideo($('.inlineVideoContainer'));
-//                    video.src = 'video/buck.mp4';
-//                    video.src = 'http://www.marzipano.net/demos/common-media/video/mercedes-f1-720x360.mp4';
-                    
-//                    $('.load').on('click touchstart', function() {
-//                        video.load();
-//                        console.dir(video);
-//                    });
-                    
                 });
             })(jQuery);
         </script>
@@ -104,9 +104,6 @@ and open the template in the editor.
             <video width="320" height="176" controls poster="http://www.w3schools.com/images/w3html5.gif" playsinline webkit-playsinline>
                 <source src="video/buck.mp4" type="video/mp4">
             </video>
-            
-<!--            <div class="inlineVideoContainer"></div>
-            <button class="load">load</button>-->
         </div>
     </body>
 </html>

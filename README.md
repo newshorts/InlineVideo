@@ -7,13 +7,11 @@ This description should match descriptions added for package managers (Gemspec, 
 
 When you embed a video element in your page be sure to include the "playsinline" attribute. Then add a source attribute with an mp3 of the audio in your video.
 
-InlineVideo.js will automatically detect video elements with this attribute and replace them with the InlineVideo.js player if your users are on an iPhone. It will also play the audio track along with the video frames. To the user, the experience will be an inline video.
+InlineVideo.js will automatically detect video elements with this attribute and replace them with the InlineVideo.js player if your users are on an iPhone. COMING SOON: It will also play the audio track along with the video frames. To the user, the experience will be an inline video.
 
 ```html
-<video width="320" height="240" controls playsinline webkit-playsinline>
-    <source src="movie.mp4" type="video/mp4">
-    <source src="movie.ogg" type="video/ogg">
-    <source src="movieAudio.mp3" type="audio/mp3">
+<video width="320" height="176" controls poster="http://www.w3schools.com/images/w3html5.gif" playsinline webkit-playsinline>
+    <source src="video/buck.mp4" type="video/mp4">
 </video>
 ```
 
@@ -29,7 +27,7 @@ Make sure you include jQuery and the InlineVideo.js file in your scripts:
 
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="js/inline-video-player.js"></script>
+<script src="js/inline-video.js"></script>
 ```
 
 ## API Reference
