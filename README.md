@@ -18,7 +18,7 @@ InlineVideo.js works by detecting videos that should play inline for users on an
 
 ## Motivation
 
-This project was started because I believe developers should have to freedom to choose if their videos are meant to play full screen or not. I understand the reasoning behind apples choices for the iphone, but sometimes a design or interactive experience calls for an inline video and iPhone users shouldn't be left out. Also, with the introduction of IOS 8 and webGL enabled by default, you would think we'd be able to use video textures...
+I believe developers should have to freedom to choose if their videos are meant to play inline or not. I understand the reasoning behind Apple's choices for the iphone, but sometimes a design or interactive experience calls for an inline video and iPhone users shouldn't be left out. Also, with the introduction of IOS 8 and webGL enabled by default, you would think we'd be able to use video textures...
 
 ## Installation
 
