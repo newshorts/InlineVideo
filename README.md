@@ -22,10 +22,11 @@ This project was started because I believe developers should have to freedom to 
 
 ## Installation
 
-Make sure you include jQuery and the InlineVideo.js file in your scripts:
+Make sure you include jQuery, a request animationframe poly and the InlineVideo.js file in your scripts:
 
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="js/requestAnimationFrame.js"></script>
 <script src="js/inline-video.js"></script>
 ```
 
@@ -50,6 +51,14 @@ Also there are a couple of example uses of inline video being used in the wild f
 [takeyourdose.com](http://www.takeyourdose.com/en)
 
 If you'd like to get involved message me, submit a pull request or issue.
+
+## TODO
+
+There's still much work to be done:
+
+* automatically detect and play audio along with the video
+* give a 'production ready' style to the player interface
+* refactoring and reducing dependecies on libraries like jquery and requestAnimationFrame
 
 ## License
 
