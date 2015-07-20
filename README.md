@@ -2,6 +2,9 @@
 
 InlineVideo.js is intended to allow users on an iphone to play videos inline in the safari browser, circumventing the default fullscreen behavior.
 
+[DEMO](http://codepen.io/newshorts/pen/yNxNKR)
+----
+
 ## Code Example
 
 When you embed a video element in your page be sure to include the "playsinline" attribute. Then add a source attribute with an mp3 of the audio in your video.
