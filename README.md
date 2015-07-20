@@ -43,7 +43,7 @@ Contributors are always welcome. This library is nowhere near finished, I'd love
 
 There's some important conversation happening here: [Chromium developers forum](https://code.google.com/p/chromium/issues/detail?id=395206)
 
-Also there are a couple of example uses of inline video being used in the wild:
+Also there are a couple of example uses of inline video being used in the wild for webgl textures (however, these sources are not using this library):
 
 [KRPano Cloud Demo](http://krpano.com/krpanocloud/video/airpano/index.html)
 
