@@ -1,3 +1,5 @@
+# UPDATE: I'm under water with work right now. Should be back to contributing to this repo in about 2 weeks. At that point, I'll post a development plan for this. Thanks for your patience! 
+
 ## Synopsis
 
 InlineVideo.js is intended to allow users on an iphone to play videos inline in the safari browser, circumventing the default fullscreen behavior.
