@@ -1,0 +1,30 @@
+{
+  "name": "InlineVideo",
+  "version": "0.0.2",
+  "homepage": "https://github.com/wewearglasses/InlineVideo",
+  "authors": [
+    "Mike Newell<mike@iwearshorts.com>",
+    "Shang Liang <shang@wewearglasses.com>"
+  ],
+  "description": "A library to allow video to play inline if you're user is on an iphone",
+  "main": "js/inline-video",
+  "dependencies": {
+    "jquery": "*"
+  },
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "video",
+    "ios",
+    "workaround"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

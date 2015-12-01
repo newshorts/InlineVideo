@@ -15,6 +15,13 @@
  * 
  */
 
+/*!
+ * @wewearglasses
+ * Forked from original repo, going to make some changes to make the library (supposingly) easier  to use
+ * Date: 01-12-2015
+*/
+
+
 'use strict';
 
 var InlineVideo = function(elem) {
