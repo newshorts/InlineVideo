@@ -1,3 +1,13 @@
+/**
+ * @wewearglasses
+ * Forked from original repo and re-wrote in ES6
+ * 
+ * Date: 02-12-2015
+ * Babel command: babel watch InlineVideo.js --out-file ../dist/InlineVideo.js --presets es2015
+ * Uglify command: glifyjs InlineVideo.js --compress --mangle --output InlineVideo.min.js
+*/
+
+
 /*!
  * Inline Video Player v0.0.1
  * http://iwearshorts.com/
@@ -14,13 +24,6 @@
  * 
  */
 
-/**
- * @wewearglasses
- * Forked from original repo and re-wrote in ES6
- * 
- * Date: 01-12-2015
- * Babel command: babel watch InlineVideo.js --out-file ../dist/InlineVideo.js --presets es2015
-*/
 
 class InlineVideo{
     constructor(video_identifier,canvas_identifier,framerate=30){
@@ -31,7 +34,7 @@ class InlineVideo{
         this.framerate=framerate;
         // !Notice: Mobile browsers require the user to initiate a user interaction first before the video can play.
         // A touch event is added to the window to capture this user interaction
-        // Event listener is so annoying! Can't remove it once it is added 
+        // TODO: Anyone has a better solution to solve "this" problem for event listener? This method gives the correct "this" but the event listener cannot be removed because it is an arrow functiono 
         window.addEventListener('touchstart',evt=>this._start_load());
         this._start_load();
          // On IOS it will be webkitRequestAnimationFrame. Hopefully they will drop the prefix in the future
