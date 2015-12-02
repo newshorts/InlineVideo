@@ -7,7 +7,7 @@
     "Shang Liang <shang@wewearglasses.com>"
   ],
   "description": "A library to allow video to play inline if you're user is on an iphone",
-  "main": "js/inline-video",
+  "main": "dist/InlineVideo.js",
   "dependencies": {
     "jquery": "*"
   },

@@ -1,0 +1,10 @@
+{
+	"files": [
+		"src/InlineVideo.js"
+	]
+	
+	,"compilerOptions": {
+		"target": "ES6"
+	}
+	
+}

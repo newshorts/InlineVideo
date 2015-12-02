@@ -1,3 +1,15 @@
+### ABOUT THIS BRANCH
+* Re-coded in ES6
+* Removed jquery dependency
+* Removed all event listeners, onproess, onmetadata, onloadeddata, onloadstart. Add them back if you need them
+* Removed auto converting video tags with "playsinline" attribute. Instead, the developer pass in the video and canvas idendifier in the contructor
+* Removed auto create canvas element. I think adding them in HTML code is more obvious and the developer has more control over the dimension and positioning
+
+### TODO
+* Add function to play an audio file along with the video
+* To write a fall back to native feature if the mobile device is Android
+
+
 ### UPDATE: I'm under water with work right now. Should be back to contributing to this repo in about 2 weeks. At that point, I'll post a development plan for this. Thanks for your patience! 
 
 ## Synopsis

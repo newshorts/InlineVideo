@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+        	html,body{
+        		height: 100%;
+        		font-family: sans-serif;
+        		padding:0;
+        		margin:0;
+        		text-align: center;
+        	}
+        	a{
+        		background: #333;
+        		color:#FFF;
+        		font-family: sans-serif;
+        		text-decoration: none;
+        		padding: 5px 10px;
+        	}
+        	.cover{
+        		text-align: center;
+        		position: absolute;
+        		width:100%;
+        		height:100%;
+        		top:0;
+        		background: rgba(255,255,255,0.8);
+        		padding-top: 50%;
+        	}
+        </style>
+    </head>
+    <body>
+    	<canvas id="inline-video-canvas" width="320" height="176"> </canvas>
+    	<br/>
+    	<video id="inline-video" width="320" height="176" playsinline webkit-playsinline> 
+    		<source src="buck.mp4" type="video/mp4">
+    	</video>
+
+    	<br/>
+    	<br/>
+    	<a href="javascript:iv.play()">PLAY</a>
+    	<a href="javascript:iv.pause()">PAUSE</a>
+    	<a href="javascript:iv.rewind()">REWIND</a>
+    	<div class="cover" onclick="this.parentNode.removeChild(this);">TAP TO GET READY</div>
+        <script src="../dist/InlineVideo.js"></script>
+        <script>
+            var iv=new InlineVideo('#inline-video','#inline-video-canvas');
+        </script>
+    </body>
+</html>
