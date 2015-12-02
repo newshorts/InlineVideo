@@ -1,41 +1,30 @@
 /**
- * @wewearglasses
+ * Inline Video Player 0.0.3
+ * WE/WEAR/GLASSES
  * Forked from original repo and re-wrote in ES6
+ * Date: 03-12-2015
  * 
- * Date: 02-12-2015
- * Babel command: babel watch InlineVideo.js --out-file ../dist/InlineVideo.js --presets es2015
- * Uglify command: glifyjs InlineVideo.js --compress --mangle --output InlineVideo.min.js
+ * Original repo 
+ *      https://github.com/newshorts/InlineVideo
+ *      Copyright 2015 Mike Newell
+ *      Released under the MIT license
+ *      https://tldrlegal.com/license/mit-license
+ * 
+ * 
+ * Babel command: babel watch src/InlineVideo.js --out-file dist/InlineVideo.js --presets es2015
+ * Uglify command: uglifyjs dist/InlineVideo.js --compress --mangle --output dist/InlineVideo.min.js
 */
-
-
-/*!
- * Inline Video Player v0.0.1
- * http://iwearshorts.com/
- *
- * Includes jQuery js
- * https://jquery.com/
- *
- * Copyright 2015 Mike Newell
- * Released under the MIT license
- * https://tldrlegal.com/license/mit-license
- *
- * Date: 2015-18-07
- * 
- * 
- */
-
 
 class InlineVideo{
     constructor(video_identifier,canvas_identifier,framerate=30){
-        this._load_started=false;
+        // this._load_started=false;
         this.video = document.querySelector(video_identifier);
         this.canvas = document.querySelector(canvas_identifier);
-        this.video.parentNode.removeChild(this.video);
+        // this.video.parentNode.removeChild(this.video);
         this.framerate=framerate;
-        // !Notice: Mobile browsers require the user to initiate a user interaction first before the video can play.
-        // A touch event is added to the window to capture this user interaction
-        // TODO: Anyone has a better solution to solve "this" problem for event listener? This method gives the correct "this" but the event listener cannot be removed because it is an arrow functiono 
-        window.addEventListener('touchstart',evt=>this._start_load());
+        // !Notice: Mobile browsers require the user to initiate a user interaction first before the video can play. A touch event is added to the window to capture this user interaction
+        this.bound_start_load = (evt) => this._start_load(); 
+        window.addEventListener('touchstart',this.bound_start_load);
         this._start_load();
          // On IOS it will be webkitRequestAnimationFrame. Hopefully they will drop the prefix in the future
          // !Notice: Dropped other prefix since this is for IOS only
@@ -78,10 +67,8 @@ class InlineVideo{
      * Start to load the video
      * Bound to the 'touchstart' event on window,
      */
-    _start_load(){
-        if(!this._load_started){
-            this.video.load();
-            this._load_started=true;
-        }
+    _start_load() {
+        this.video.load();
+        window.removeEventListener('touchstart', this.bound_start_load);
     }
 }
