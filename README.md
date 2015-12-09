@@ -1,13 +1,16 @@
-### ABOUT THIS BRANCH
-* Re-coded in ES6
-* Removed jquery dependency
-* Removed all event listeners, onproess, onmetadata, onloadeddata, onloadstart. Add them back if you need them
-* Removed auto converting video tags with "playsinline" attribute. Instead, the developer pass in the video and canvas idendifier in the contructor
-* Removed auto create canvas element. I think adding them in HTML code is more obvious and the developer has more control over the dimension and positioning
+### SYNOPSIS 
+InlineVideo.js is intended to allow users on an iphone to play videos inline in the safari browser, circumventing the default fullscreen behavior.  
 
 ### CHANGELOG
 * 0.0.3
-    * Changed the ugliy implementation of add and remove event listener for touchstart to a more elegant way 
+    * Changed implementation of adding and removing event listener for touchstart
+* 0.0.2
+    * Re-coded in ES6
+    * Removed jquery dependency
+    * Removed event listeners onproess, onmetadata, onloadeddata, onloadstart
+    * Removed function of auto converting video tags with "playsinline" attribute 
+    * Removed create canvas element with Javascript
+    * Removed play, stop buttons created with JavaScript 
 
 ### TODO
 * Add function to play an audio file along with the video
