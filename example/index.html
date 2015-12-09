@@ -19,14 +19,20 @@
         		padding: 5px 10px;
         	}
         	.cover{
-        		text-align: center;
         		position: absolute;
-        		width:100%;
-        		height:100%;
-        		top:0;
-        		background: rgba(255,255,255,0.8);
-        		padding-top: 50%;
+                top:0;
+                width:100%;
+                height: 100%;
+        		background: rgba(255,255,255,0.95);
+                
         	}
+            .cover .text{
+                position: absolute;
+                top:50%;
+                left:50%;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
         </style>
     </head>
     <body>
@@ -41,7 +47,8 @@
     	<a href="javascript:iv.play()">PLAY</a>
     	<a href="javascript:iv.pause()">PAUSE</a>
     	<a href="javascript:iv.rewind()">REWIND</a>
-    	<div class="cover" onclick="this.parentNode.removeChild(this);">TAP TO GET READY</div>
+        <p>Note: The video doesn't play smoothly on desktop but it plays fine on mobile browsers.</p>
+    	<div class="cover" onclick="this.parentNode.removeChild(this);"><div class="text">TAP TO GET READY</div></div>
         <script src="../dist/InlineVideo.min.js"></script>
         <script>
             var iv=new InlineVideo('#inline-video','#inline-video-canvas');
