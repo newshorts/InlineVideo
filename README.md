@@ -17,4 +17,4 @@ InlineVideo.js is intended to allow users on an iphone to play videos inline in 
 * To write a fall back to native feature if the mobile device is Android
 
 ### HOW TO USE
-* Please refer to the example folder
+* Please refer to the code in the [example file](http://wewearglasses.github.io/InlineVideo/example)
