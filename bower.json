@@ -8,9 +8,6 @@
   ],
   "description": "A library to allow video to play inline if you're user is on an iphone",
   "main": "dist/InlineVideo.js",
-  "dependencies": {
-    "jquery": "*"
-  },
   "moduleType": [
     "globals"
   ],
