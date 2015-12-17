@@ -41,6 +41,10 @@
     	<video id="inline-video" width="320" height="176" playsinline webkit-playsinline> 
     		<source src="buck.mp4" type="video/mp4">
     	</video>
+            
+        <audio id="inline-audio" style="height:1px"> 
+    		<source src="buck.mp3" type="audio/mpeg">
+    	</audio>
 
     	<br/>
     	<br/>
@@ -49,9 +53,11 @@
     	<a href="javascript:iv.rewind()">REWIND</a>
         <p>Note: The video doesn't play smoothly on desktop but it plays fine on mobile browsers.</p>
     	<div class="cover" onclick="this.parentNode.removeChild(this);"><div class="text">TAP TO GET READY</div></div>
-        <script src="../dist/InlineVideo.min.js"></script>
+        <script src="../dist/InlineVideo.js"></script>
         <script>
-            var iv=new InlineVideo('#inline-video','#inline-video-canvas');
+            var iv=new InlineVideo('#inline-video','#inline-video-canvas',{audio_identifier:'#inline-audio',fake_ios:true});
+            iv.video.load();
+            iv.audio.load();
         </script>
     </body>
 </html>

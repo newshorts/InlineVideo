@@ -17,20 +17,20 @@
 
 class InlineVideo{
     constructor(video_identifier, canvas_identifier, options = {
-        sound_identifier: null ,framerate: 25 ,fake_ios: false ,on_ended: null ,on_load:null}){
+        audio_identifier: null ,framerate: 25 ,fake_ios: false ,on_ended: null ,on_load:null}){
         this.video = document.querySelector(video_identifier);
         this.canvas = document.querySelector(canvas_identifier);
         if (!options.framerate) {
             options.framerate = 25;
         }
         this.framerate = options.framerate;
-        if (options.sound_identifier) {
-            this.sound = document.querySelector(options.sound_identifier);
-            console.log(this.sound);
+        if (options.audio_identifier) {
+            this.audio = document.querySelector(options.audio_identifier);
         }
         this.ios=options.fake_ios||/iPad|iPhone|iPod/.test(navigator.platform);
          // On IOS it will be webkitRequestAnimationFrame. Hopefully they will drop the prefix in the future
          // !Notice: Dropped other prefix since this is for IOS only
+         
         if ( !window.requestAnimationFrame ) {
             window.requestAnimationFrame = window.webkitRequestAnimationFrame 
             window.cancelRequestAnimationFrame = window.webkitCancelRequestAnimationFrame
@@ -38,7 +38,7 @@ class InlineVideo{
         
         if (options.on_load) {
             this.video.on_load = options.on_load;
-            this.video.loadeddata = function () {
+            this.video.onloadeddata = function () {
                 this.on_load();
             }
         }
@@ -53,8 +53,8 @@ class InlineVideo{
         if(this.ios){
             this.last_frame_time=Date.now();
             this.animation_request = requestAnimationFrame((t) => this.render_frame(t));
-            if (this.sound) {
-                this.sound.play();
+            if (this.audio) {
+                this.audio.play();
             }
         }else{
             this.video.play();
@@ -64,8 +64,8 @@ class InlineVideo{
     pause(){
         if(this.ios){
             cancelAnimationFrame(this.animation_request);
-            if (this.sound) {
-                this.sound.pause();
+            if (this.audio) {
+                this.audio.pause();
             }
         }else{
             this.video.pause();
@@ -78,9 +78,9 @@ class InlineVideo{
             this.video.currentTime=0;
             this.pause();
             this.play();
-            if (this.sound) {
-                this.sound.currentTime = 0;
-                this.sound.play();
+            if (this.audio) {
+                this.audio.currentTime = 0;
+                this.audio.play();
             }
         }else{
             this.video.currentTime=0;
@@ -91,11 +91,10 @@ class InlineVideo{
     render_frame(t) {
         
         var time=Date.now();
-        var elapsed = (time - this.last_frame_time) / 1000;
-        console.log(elapsed, this.framerate);
+        var elapsed = (time - this.last_frame_time) / 1000.0;
         if(elapsed > 1.0/this.framerate){
             this.last_frame_time = time;
-            this.video.currentTime+=elapsed;
+            this.video.currentTime += elapsed;
             this.canvas.getContext('2d').drawImage(this.video, 0, 0);
             
         }
@@ -103,8 +102,8 @@ class InlineVideo{
         if(this.video.currentTime < this.video.duration) {
             this.animation_request=requestAnimationFrame((t)=>this.render_frame(t));
         }else{
-            if(this.on_ended){
-                this.on_ended();
+            if(this.video.on_ended){
+                this.video.on_ended();
             }
         }
     }

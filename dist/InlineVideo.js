@@ -23,60 +23,96 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var InlineVideo = (function () {
     function InlineVideo(video_identifier, canvas_identifier) {
-        var _this = this;
-
-        var framerate = arguments.length <= 2 || arguments[2] === undefined ? 30 : arguments[2];
+        var options = arguments.length <= 2 || arguments[2] === undefined ? {
+            audio_identifier: null, framerate: 25, fake_ios: false, on_ended: null, on_load: null } : arguments[2];
 
         _classCallCheck(this, InlineVideo);
 
-        // this._load_started=false;
         this.video = document.querySelector(video_identifier);
         this.canvas = document.querySelector(canvas_identifier);
-        // this.video.parentNode.removeChild(this.video);
-        this.framerate = framerate;
-        // !Notice: Mobile browsers require the user to initiate a user interaction first before the video can play. A touch event is added to the window to capture this user interaction
-        this.bound_start_load = function (evt) {
-            return _this._start_load();
-        };
-        window.addEventListener('touchstart', this.bound_start_load);
-        this._start_load();
+        if (!options.framerate) {
+            options.framerate = 25;
+        }
+        this.framerate = options.framerate;
+        if (options.audio_identifier) {
+            this.audio = document.querySelector(options.audio_identifier);
+        }
+        this.ios = options.fake_ios || /iPad|iPhone|iPod/.test(navigator.platform);
         // On IOS it will be webkitRequestAnimationFrame. Hopefully they will drop the prefix in the future
         // !Notice: Dropped other prefix since this is for IOS only
+
         if (!window.requestAnimationFrame) {
             window.requestAnimationFrame = window.webkitRequestAnimationFrame;
             window.cancelRequestAnimationFrame = window.webkitCancelRequestAnimationFrame;
+        }
+
+        if (options.on_load) {
+            this.video.on_load = options.on_load;
+            this.video.onloadeddata = function () {
+                this.on_load();
+            };
+        }
+
+        if (options.on_ended) {
+            this.video.on_ended = options.on_ended;
+            this.video.onended = function () {
+                this.on_ended();
+            };
         }
     }
 
     _createClass(InlineVideo, [{
         key: 'play',
         value: function play() {
-            var _this2 = this;
+            var _this = this;
 
-            this.last_frame_time = Date.now();
-            this.animation_request = requestAnimationFrame(function (t) {
-                return _this2.render_frame(t);
-            });
+            if (this.ios) {
+                this.last_frame_time = Date.now();
+                this.animation_request = requestAnimationFrame(function (t) {
+                    return _this.render_frame(t);
+                });
+                if (this.audio) {
+                    this.audio.play();
+                }
+            } else {
+                this.video.play();
+            }
         }
     }, {
         key: 'pause',
         value: function pause() {
-            cancelAnimationFrame(this.animation_request);
+            if (this.ios) {
+                cancelAnimationFrame(this.animation_request);
+                if (this.audio) {
+                    this.audio.pause();
+                }
+            } else {
+                this.video.pause();
+            }
         }
     }, {
         key: 'rewind',
         value: function rewind() {
-            this.video.currentTime = 0;
-            this.pause();
-            this.play();
+            if (this.ios) {
+                this.video.currentTime = 0;
+                this.pause();
+                this.play();
+                if (this.audio) {
+                    this.audio.currentTime = 0;
+                    this.audio.play();
+                }
+            } else {
+                this.video.currentTime = 0;
+                this.video.play();
+            }
         }
     }, {
         key: 'render_frame',
         value: function render_frame(t) {
-            var _this3 = this;
+            var _this2 = this;
 
             var time = Date.now();
-            var elapsed = (time - this.last_frame_time) / 1000;
+            var elapsed = (time - this.last_frame_time) / 1000.0;
             if (elapsed > 1.0 / this.framerate) {
                 this.last_frame_time = time;
                 this.video.currentTime += elapsed;
@@ -85,21 +121,13 @@ var InlineVideo = (function () {
             // if we are at the end of the video stop
             if (this.video.currentTime < this.video.duration) {
                 this.animation_request = requestAnimationFrame(function (t) {
-                    return _this3.render_frame(t);
+                    return _this2.render_frame(t);
                 });
+            } else {
+                if (this.video.on_ended) {
+                    this.video.on_ended();
+                }
             }
-        }
-
-        /**
-         * Start to load the video
-         * Bound to the 'touchstart' event on window,
-         */
-
-    }, {
-        key: '_start_load',
-        value: function _start_load() {
-            this.video.load();
-            window.removeEventListener('touchstart', this.bound_start_load);
         }
     }]);
 
