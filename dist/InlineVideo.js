@@ -23,21 +23,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var InlineVideo = (function () {
     function InlineVideo(video_identifier, canvas_identifier) {
-        var options = arguments.length <= 2 || arguments[2] === undefined ? {
-            audio_identifier: null, framerate: 25, fake_ios: false, on_ended: null, on_load: null } : arguments[2];
+        var audio_identifier = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+        var on_ended = arguments.length <= 3 || arguments[3] === undefined ? null : arguments[3];
+        var on_load = arguments.length <= 4 || arguments[4] === undefined ? null : arguments[4];
+        var framerate = arguments.length <= 5 || arguments[5] === undefined ? 25 : arguments[5];
+        var fake_ios = arguments.length <= 6 || arguments[6] === undefined ? false : arguments[6];
 
         _classCallCheck(this, InlineVideo);
 
         this.video = document.querySelector(video_identifier);
         this.canvas = document.querySelector(canvas_identifier);
-        if (!options.framerate) {
-            options.framerate = 25;
+        this.framerate = framerate;
+        if (audio_identifier) {
+            this.audio = document.querySelector(audio_identifier);
         }
-        this.framerate = options.framerate;
-        if (options.audio_identifier) {
-            this.audio = document.querySelector(options.audio_identifier);
-        }
-        this.ios = options.fake_ios || /iPad|iPhone|iPod/.test(navigator.platform);
+        this.ios = fake_ios || /iPad|iPhone|iPod/.test(navigator.platform);
         // On IOS it will be webkitRequestAnimationFrame. Hopefully they will drop the prefix in the future
         // !Notice: Dropped other prefix since this is for IOS only
 
@@ -46,18 +46,13 @@ var InlineVideo = (function () {
             window.cancelRequestAnimationFrame = window.webkitCancelRequestAnimationFrame;
         }
 
-        if (options.on_load) {
-            this.video.on_load = options.on_load;
-            this.video.onloadeddata = function () {
-                this.on_load();
-            };
+        if (on_ended) {
+            this.on_ended = on_ended;
+            this.video.addEventListener('ended', on_ended);
         }
 
-        if (options.on_ended) {
-            this.video.on_ended = options.on_ended;
-            this.video.onended = function () {
-                this.on_ended();
-            };
+        if (on_load) {
+            this.video.addEventListener('loadeddata', on_load);
         }
     }
 
@@ -117,6 +112,7 @@ var InlineVideo = (function () {
                 this.last_frame_time = time;
                 this.video.currentTime += elapsed;
                 this.canvas.getContext('2d').drawImage(this.video, 0, 0);
+                console.log();
             }
             // if we are at the end of the video stop
             if (this.video.currentTime < this.video.duration) {
@@ -124,8 +120,8 @@ var InlineVideo = (function () {
                     return _this2.render_frame(t);
                 });
             } else {
-                if (this.video.on_ended) {
-                    this.video.on_ended();
+                if (this.on_ended) {
+                    this.on_ended();
                 }
             }
         }
