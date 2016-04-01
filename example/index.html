@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+        	html,body{
+        		height: 100%;
+        		font-family: sans-serif;
+        		padding:0;
+        		margin:0;
+        		text-align: center;
+        	}
+        	a{
+        		background: #333;
+        		color:#FFF;
+        		font-family: sans-serif;
+        		text-decoration: none;
+        		padding: 5px 10px;
+        	}
+        	.cover{
+        		position: absolute;
+                top:0;
+                width:100%;
+                height: 100%;
+        		background: rgba(255,255,255,0.95);
+                
+        	}
+            .cover .text{
+                position: absolute;
+                top:50%;
+                left:50%;
+                transform:translate(-50%,-50%);
+                -webkit-transform:translate(-50%,-50%);
+            }
+        </style>
+    </head>
+    <body>
+    	<canvas id="inline-canvas" width="320" height="176"> </canvas>
+    	<br/>
+    	<video id="inline-video" width="320" height="176" playsinline webkit-playsinline> 
+    		<source src="buck.mp4" type="video/mp4">
+    	</video>
+            
+        <audio id="inline-audio" style="height:1px"> 
+    		<source src="buck.mp3" type="audio/mpeg">
+    	</audio>
+
+    	<br/>
+    	<br/>
+    	<a href="javascript:iv.play()">PLAY</a>
+    	<a href="javascript:iv.pause()">PAUSE</a>
+    	<a href="javascript:iv.rewind()">REWIND</a>
+        <p>Note: The video doesn't play smoothly on desktop but it plays fine on mobile browsers.</p>
+    	<div class="cover" onclick="ready();"><div class="text">TAP TO GET READY</div></div>
+        <script src="../dist/InlineVideo.js"></script>
+        <script>
+            var iv=new InlineVideo('#inline-video','#inline-canvas', '#inline-audio',on_ended, on_load, 25, false);
+            function ready(){
+                var cover=document.querySelector('.cover');
+                cover.parentNode.removeChild(cover);
+                iv.video.load();
+                iv.audio.load();
+            }
+            function on_load(){
+                console.log('loaded');
+            }
+            
+            function on_ended(){
+                console.log('ended');
+            }
+        </script>
+    </body>
+</html>
