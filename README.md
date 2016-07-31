@@ -1,4 +1,4 @@
-### UPDATE: I'm under water with work right now. Should be back to contributing to this repo in about 2 weeks. At that point, I'll post a development plan for this. Thanks for your patience! 
+### UPDATE: This library is DEPRECATED. The (new policies)[https://webkit.org/blog/6784/new-video-policies-for-ios/] for iOS 10, make this repo (thankfully) obsolete. If you need something this week, take a look at what (these guys)[https://medium.com/this-also/whitewater-9b47f1e32ffe#.tzy7ko5su] did. It's a pretty good idea, though they didn't come up with it ;)
 
 ## Synopsis
 
